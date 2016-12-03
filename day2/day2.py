@@ -1,10 +1,16 @@
 import string
 
-def isMoveImpossible(position):
-    return not  -2 < position < 2
+def isMovePossible(x, y):
+    if 0 <= y <= 4:
+        if 0 <= x <= 4:
+            return keypad[y][x] != 'x'
+    return False
 
-def coordsToCode(coords):
-    return str(5 - (3*coords[1]) + coords[0])
+keypad = [['x', 'x', "1", 'x', 'x'],
+          ['x', '2', '3', '4', 'x'],
+          ['5', '6', '7', '8', '9'],
+          ['x', 'A', 'B', 'C', 'x'],
+          ['x', 'x', 'D', 'x', 'x']]
 
 def main():
     lines = []
@@ -12,7 +18,7 @@ def main():
     for line in inputFile.readlines():
         lines.append(string.strip(line))
 
-    x, y = 0, 0
+    x, y = 0, 2
 
     keycode = []
 
@@ -20,22 +26,21 @@ def main():
         for direction in line:
             n_x, n_y = x, y
             if direction == "U":
-                n_y += 1
+                n_y -= 1
             if direction == "R":
                 n_x += 1
             if direction == "L":
                 n_x -= 1
             if direction == "D":
-                n_y -= 1
+                n_y += 1
 
-            if isMoveImpossible(n_x) or isMoveImpossible(n_y):
-                continue
-            x, y = n_x, n_y
+            if isMovePossible(n_x, n_y):
+                x, y = n_x, n_y
         keycode.append((x, y))
 
     number = ""
     for coords in keycode:
-        number += coordsToCode(coords)
+        number += keypad[coords[1]][coords[0]]
     print number
 
 
