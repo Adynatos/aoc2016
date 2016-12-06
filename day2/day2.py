@@ -6,7 +6,7 @@ def isMovePossible(x, y):
             return keypad[y][x] != 'x'
     return False
 
-keypad = [['x', 'x', "1", 'x', 'x'],
+keypad = [['x', 'x', '1', 'x', 'x'],
           ['x', '2', '3', '4', 'x'],
           ['5', '6', '7', '8', '9'],
           ['x', 'A', 'B', 'C', 'x'],
@@ -20,7 +20,7 @@ def main():
 
     x, y = 0, 2
 
-    keycode = []
+    keycode = ""
 
     for line in lines:
         for direction in line:
@@ -36,14 +36,9 @@ def main():
 
             if isMovePossible(n_x, n_y):
                 x, y = n_x, n_y
-        keycode.append((x, y))
+        keycode += keypad[y][x]
 
-    number = ""
-    for coords in keycode:
-        number += keypad[coords[1]][coords[0]]
-    print number
-
-
+    print keycode
 
 if __name__ == "__main__":
     main()

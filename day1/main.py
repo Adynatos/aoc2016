@@ -1,5 +1,4 @@
 import string
-from enum import Enum
 
 
 def main():
